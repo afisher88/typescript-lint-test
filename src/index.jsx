@@ -1,9 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import balloons from './img/balloons.jpg';
+import './scss/main.scss';
 
 class MyComponent extends React.Component {
   render() {
-    return <p>Hello World!</p>;
+    return (
+      <div className="wrapper">
+        <img src={balloons} width="300" alt="" />
+        <p>Hello World!</p>
+      </div>
+    );
   }
 }
 

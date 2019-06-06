@@ -27,7 +27,7 @@
     "comma-dangle": ["error", "never"],
     "class-methods-use-this": 0,
     "no-console": [
-      "error",
+      "warn",
       {
         "allow": ["warn", "error"]
       }
