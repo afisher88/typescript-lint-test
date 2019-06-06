@@ -4,8 +4,6 @@ const webpack = require('webpack');
 
 const isDev = process.env.NODE_ENV === 'development';
 
-console.log(`isDev: ${isDev}`);
-
 module.exports = {
   mode: isDev ? 'development' : 'production',
   entry: './src/index.jsx',
