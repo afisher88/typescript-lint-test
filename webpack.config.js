@@ -1,20 +1,23 @@
 const path = require('path');
 const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 
+const entryPoints = {
+  page1: ['./src/pages/page1.jsx'],
+  page2: ['./src/pages/page2.jsx']
+};
+
 module.exports = {
   mode: isDev ? 'development' : 'production',
-  entry: './src/index.jsx',
+  entry: entryPoints,
   devtool: isDev ? 'inline-source-map' : '',
-  devServer: {
-    contentBase: path.resolve(__dirname, 'src')
-  },
   output: {
-    path: path.resolve(__dirname, 'dist/'),
-    publicPath: '/',
-    filename: 'app.bundle.js'
+    path: path.resolve(__dirname, 'public/'),
+    publicPath: '/public',
+    filename: '[name].bundle.js'
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -23,7 +26,7 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /(node_modules)/,
+        exclude: /[\\/]node_modules[\\/]/,
         use: [
           {
             loader: 'babel-loader',
@@ -40,7 +43,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        exclude: /(node_modules)/,
+        exclude: /[\\/]node_modules[\\/]/,
         use: [
           // {
           //   loader: MiniCssExtractPlugin.loader
@@ -67,7 +70,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        exclude: /(node_modules)/,
+        exclude: /[\\/]node_modules[\\/]/,
         use: [
           {
             loader: 'file-loader',
@@ -89,7 +92,7 @@ module.exports = {
       },
       {
         test: /\.(gif|png|jpe?g)$/,
-        exclude: /(node_modules)/,
+        exclude: /[\\/]node_modules[\\/]/,
         use: [
           {
             loader: 'file-loader',
@@ -115,7 +118,7 @@ module.exports = {
       },
       {
         test: /\.(ttf|eot|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-        exclude: /(node_modules)/,
+        exclude: /[\\/]node_modules[\\/]/,
         loader: 'file-loader',
         options: {
           outputPath: 'fonts',
@@ -129,5 +132,26 @@ module.exports = {
     //   filename: 'styles.css'
     // }),
     new webpack.HotModuleReplacementPlugin()
-  ]
+  ],
+  optimization: {
+    minimize: !isDev,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          output: {
+            comments: false
+          }
+        }
+      })
+    ],
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'common',
+          chunks: 'all'
+        }
+      }
+    }
+  }
 };
