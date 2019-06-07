@@ -1,7 +1,6 @@
 const path = require('path');
-const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const pluginConfig = require('./plugins.webpack.config');
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -127,12 +126,7 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    // new MiniCssExtractPlugin({
-    //   filename: 'styles.css'
-    // }),
-    new webpack.HotModuleReplacementPlugin()
-  ],
+  plugins: pluginConfig,
   optimization: {
     minimize: !isDev,
     minimizer: [
@@ -146,9 +140,16 @@ module.exports = {
     ],
     splitChunks: {
       cacheGroups: {
-        commons: {
+        vendor: {
           test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          enforce: true,
+          chunks: 'all'
+        },
+        common: {
+          test: /[\\/]components[\\/]common[\\/]/,
           name: 'common',
+          enforce: true,
           chunks: 'all'
         }
       }
