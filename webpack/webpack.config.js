@@ -14,8 +14,8 @@ module.exports = {
   entry: entryPoints,
   devtool: isDev ? 'inline-source-map' : '',
   output: {
-    path: path.resolve(__dirname, 'public/'),
-    publicPath: '/public',
+    path: path.resolve(__dirname, '../public'),
+    publicPath: path.resolve(__dirname, '../public'),
     filename: '[name].bundle.js'
   },
   resolve: {
