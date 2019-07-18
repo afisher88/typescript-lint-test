@@ -7,6 +7,8 @@ import PageOneThingTwo from '../components/page1/PageOneThingTwo';
 
 class Page1 extends React.Component {
   render() {
+    const test = '';
+
     return (
       <main>
         <h1>Page 1</h1>
