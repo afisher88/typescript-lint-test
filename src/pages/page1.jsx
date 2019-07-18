@@ -7,6 +7,7 @@ import PageOneThingTwo from '../components/page1/PageOneThingTwo';
 
 class Page1 extends React.Component {
   render() {
+    // eslint-disable-next-line
     const test = '';
 
     return (

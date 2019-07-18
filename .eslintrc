@@ -1,10 +1,12 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
     "airbnb",
-    "prettier"
+    "prettier",
+    "prettier/@typescript-eslint"
   ],
   "env": {
     "browser": true,
@@ -60,6 +62,7 @@
     "react/prefer-stateless-function": 0,
     "react/destructuring-assignment": 0,
     "react/no-multi-comp": 0,
-    "eol-last": 0
+    "eol-last": 0,
+    "@typescript-eslint/no-unused-vars": 0
   }
 }
